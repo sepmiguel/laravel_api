@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1; // adjust the name space based on the folder name new folder name on controllers folder Api/V1
 
-use App\Models\Task; // added based on import class under index() Task beside return : App\Model\Task
-use App\Http\Controllers\Controller; // added based on import class under Controller besides extends: App\Http\Controllers\Controller
+use App\Http\Resources\TaskResource;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Http\Response;  // REVIEW THIS ENTRY
 use Illuminate\Http\RedirectResponse; // REVIEW THIS ENTRY
+use App\Models\Task; // added based on import class under index() Task beside return : App\Model\Task
+use App\Http\Controllers\Controller; // added based on import class under Controller besides extends: App\Http\Controllers\Controller
 // use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -18,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        return TaskResource::collection(Task::all());
     }
 
     /**
@@ -50,7 +51,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return TaskResource::make($task);
     }
 
     /**
